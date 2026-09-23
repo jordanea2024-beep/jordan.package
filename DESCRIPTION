@@ -1,11 +1,14 @@
 Package: jordan.package
-Title: What the Package Does (One Line, Title Case)
+Title: Package Project for STAT 306 Fall 2026. 
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Jordan", "Acquaro", , "jea024@bucknell.edu", role = c("aut", "cre"))
+Description: This package aligns with my typical data work flow patterns. Thus it includes helper functiosn for data cleaning that I typically use, my prefered adjustements to ggplot themes, and my own color scale.
+License: MIT + file LICENSE
 Config/roxygen2/version: 8.1.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+Imports:
+    tidyverse, 
+    sysfonts,
+    showtext
