@@ -1,5 +1,5 @@
 Package: jordan.package
-Title: Package Project for STAT 306 Fall 2026. 
+Title: Package Project for STAT 306 Fall 2026
 Version: 0.0.0.9000
 Authors@R: 
     person("Jordan", "Acquaro", , "jea024@bucknell.edu", role = c("aut", "cre"))
@@ -8,7 +8,7 @@ License: MIT + file LICENSE
 Config/roxygen2/version: 8.1.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-Imports:
-    tidyverse, 
-    sysfonts,
-    showtext
+Imports: 
+    tidyverse,
+    magrittr,
+    sysfonts

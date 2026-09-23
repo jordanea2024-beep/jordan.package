@@ -1,28 +1,30 @@
+#' @importFrom sysfonts font_add_google
+#' @export
 font_add_google("EB Garamond", family = "eb_garamond")
 
 jea_theme <- function() {
-  theme_bw(base_family = "eb_garamond") +
-    theme(
+  ggplot2::theme_bw(base_family = "eb_garamond") +
+    ggplot2::theme(
       # Text Elements
-      plot.title = element_text(
+      plot.title = ggplot2::element_text(
         face = "bold",
         color = "black",
         size = 25,
         hjust = 0.5 # centered
       ),
-      plot.subtitle = element_text(
+      plot.subtitle = ggplot2::element_text(
         color = "gray5",
         size = 20,
         hjust = 0.5 # centered
       ),
-      plot.caption = element_text(
+      plot.caption = ggplot2::element_text(
         color = "gray5",
         size = 20,
         hjust = 0.5 # centered
       ),
-      axis.text = element_text(color = "gray5",
+      axis.text = ggplot2::element_text(color = "gray5",
                                size = 15),
-      axis.title = element_text(color = "gray5",
+      axis.title = ggplot2::element_text(color = "gray5",
                                 size = 20),
 
       ## Legend Elements
@@ -32,14 +34,14 @@ jea_theme <- function() {
       #lays out items horizontally
       legend.direction = "horizontal",
       # put a box around it
-      legend.box.background = element_rect(color = "gray5", size = 1),
+      legend.box.background = ggplot2::element_rect(color = "gray5", size = 1),
       # put its title on top
       legend.title.position = "top",
-      legend.title = element_text(color = "gray5",
+      legend.title = ggplot2::element_text(color = "gray5",
                                   hjust = 0.5, # center,
                                   size = 15
       ),
-      legend.text = element_text(
+      legend.text = ggplot2::element_text(
         size = 15
       )
 
