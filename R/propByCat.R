@@ -27,7 +27,7 @@ propByCat <- function(df, cat1, cat2) {
     dplyr::ungroup()
   return(big_df)
 }
-
+#' @export
 add_prop_to_df <- function(df, cat1, cat2){
   # Adds to the dataframe the proportion of
   # category two for each group in category one

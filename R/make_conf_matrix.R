@@ -1,3 +1,4 @@
+#' @export
 make_conf_matrix <- function(my_model, my_data, my_predictor){
   # Function to make a confusion matrix for a classier model
   print(summary(my_model))
