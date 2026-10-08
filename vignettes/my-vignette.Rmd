@@ -1,0 +1,84 @@
+---
+title: "my-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+#library(jordan.package)
+library(tidyverse)
+library(magrittr)
+library(sysfonts)
+```
+
+# data set 
+
+Below is two datasets from the `Tidy Tuesday` series. The theme of this dataset was a list of cocktails where each row is an individual ingredient associated with a part of the recipe for one drink. 
+```{r}
+cocktails <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-05-26/cocktails.csv')
+boston_cocktails <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-05-26/boston_cocktails.csv')
+```
+
+# Data Moves
+To display the dataset more closely and to better understand the dyplr style of data moves below I have some examples below.
+
+## filter
+To only look at a small portion of the data set we can use filter to create a new dataframe. For example, this code creates a dataframe with rows which only correspond to ones with the label "non alcoholic".  
+```{r}
+cocktails_non_alc <- cocktails %>% 
+  filter( alcoholic == "Non alcoholic")
+```
+
+## group by/ summarise
+If we want to get a summary statistic across a categorical variables of our data set then we can use the two dyplr functions, group by and summarise, t get these values. For example, this code groups by the row_id, a unique identifier of the drink for the group by. Then in the summarise line, I use the function `n()` which  gets the total number of rows for each row_id, in context this is the number of ingredients per drink.
+```{r}
+ingreident_df <- cocktails %>% 
+  group_by(row_id) %>% 
+  summarise(ingreident_num = n())
+```
+
+## join 
+To combine two datasets we will use the join function. Join has many different abilities depending on which one you use, left, right, inner, outer, full, or semi. In this example I use left join because I want all my data from the cocktails dataframe and only want to add the `ingredident_num` column from the `ingreident_df` dataframe. 
+```{r}
+cockatails2 <- cocktails %>% 
+  left_join(ingreident_df, by = "row_id")
+```
+
+## arrange 
+If you want to order a dataset by a certain attribute we can use the arrange function. The default for arrange is to list from least to greatest. In the below code, it will order the data frame by cocktails with the lowest number of ingredients to the highest number of ingredients.  
+```{r}
+cocktails3 <- cockatails2 %>% 
+  arrange(ingreident_num)
+```
+
+## mutate
+To either calculate a new attribute or make new category we can use the mutate function. In the below code I use an `ifelse()` statement to make a new category to see if the drink is in the category Ordinary Drink or Not. 
+```{r}
+cocktails4 <- cocktails %>% 
+  mutate(	is.ord.drink = ifelse(category == "Ordinary Drink", "Ordinary Drink", "Other") )
+```
+
+# My functions
+
+#propByCat
+This function easily outputs a dataframe of all combinations of the first category and second category with the proportion of category two for each group in category one. In this code, you would get a data frame with the portion of each category by if it is alcoholic or not. 
+```{r}
+alc_by_cat_df<- propByCat(cocktails, "alcoholic", "category")
+```
+
+#add_prop_to_df
+If you want the proportions found in the `propByCat` function added back to the original dataframe use `add_prop_to_df`. It takes the same inputs, only adds the proportions back into the orginal data frame. 
+```{r}
+cocktails5 <- add_prop_to_df(cocktails, "alcoholic", "category")
+```
+

@@ -47,3 +47,5 @@ jea_theme <- function() {
 
     )
 }
+
+jea_colors <- c('#581c87', '#7a35d4', "#21643e", "#0f291e", "#1d4ed8")

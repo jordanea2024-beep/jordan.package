@@ -12,3 +12,8 @@ Imports:
     tidyverse,
     magrittr,
     sysfonts
+Suggests: 
+    knitr,
+    rmarkdown,
+    caret
+VignetteBuilder: knitr

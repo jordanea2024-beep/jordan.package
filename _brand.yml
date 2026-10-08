@@ -1,0 +1,28 @@
+meta:
+  name: brand.yml
+  link: https://posit-dev.github.io/brand-yml
+
+logo:
+
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    darkpurple: "#581c87"
+    purple: "#7a35d4"
+    green: "#21643e"
+    darkgreen:  "#0f291e"
+    royalblue: "#1d4ed8"
+
+  foreground: black
+  background: white
+  primary: seagreen
+typography:
+  fonts:
+    - family: eb_garamond
+      source: google
+  base: eb_garamond
+  headings:
+    family: Rubik
+    weight: 400
+  monospace: IBM Plex Mono
