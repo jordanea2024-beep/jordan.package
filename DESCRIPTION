@@ -9,9 +9,11 @@ Config/roxygen2/version: 8.1.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports: 
-    tidyverse,
+    dplyr,
+    ggplot2, 
     magrittr,
-    sysfonts
+    sysfonts, 
+    readr
 Suggests: 
     knitr,
     rmarkdown,
