@@ -21,3 +21,5 @@ Suggests:
     caret, 
     stats
 VignetteBuilder: knitr
+URL: https://github.com/jordanea2024-beep/jordan.package
+BugReports: https://github.com/jordanea2024-beep/jordan.package/issues
