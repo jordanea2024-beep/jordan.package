@@ -1,7 +1,11 @@
 #' @importFrom sysfonts font_add_google
-#' @export
 font_add_google("EB Garamond", family = "eb_garamond")
-
+showtext::showtext_auto()
+#' Custom Theme for Jordan's Package
+#'
+#' Based in theme_bw() this theme function elevates the simplicity of the theme, centers labels, and places boxes around the legend.
+#'
+#' @export
 jea_theme <- function() {
   ggplot2::theme_bw(base_family = "eb_garamond") +
     ggplot2::theme(
@@ -47,5 +51,7 @@ jea_theme <- function() {
 
     )
 }
-
+#' Color Scheme For My Package
+#'
+#' @export
 jea_colors <- c('#581c87', '#7a35d4', "#21643e", "#0f291e", "#1d4ed8")

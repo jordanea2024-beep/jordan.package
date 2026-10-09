@@ -14,70 +14,107 @@ knitr::opts_chunk$set(
 )
 ```
 
+This package contains two functions that calculate proportion by two different categories in a data frame, a theme function, a helper function for evaluating models, and a color scheme. The goal of this package is to streamline my data science process with fucntions that I tend to write from project to project. 
+
+# Load Packages
+
 ```{r setup}
 library(tidyverse)
 library(sysfonts)
+library(showtext)
 library(jordan.package)
 ```
 
-# data set 
+# The Dataset
 
-Below is two datasets from the `Tidy Tuesday` series. The theme of this dataset was a list of cocktails where each row is an individual ingredient associated with a part of the recipe for one drink. 
+Below are two datasets from the `Tidy Tuesday` series but was originally from Kaggle. The theme of this dataset was a list of cocktails where each row is an individual ingredient associated with a part of the recipe for one drink. In understanding the data there was some inconsistency with labels which is labeled as `# small cleaning`. In this vignette we will explore different data moves which will explain this cleaning. 
 ```{r}
 cocktails <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-05-26/cocktails.csv')
 boston_cocktails <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-05-26/boston_cocktails.csv')
+
+#Small Cleaning
+cocktails <- cocktails %>% 
+  mutate(alcoholic = ifelse(alcoholic == "Non alcoholic", "Non Alcoholic", alcoholic))
 ```
 
 # Data Moves
 To display the dataset more closely and to better understand the dyplr style of data moves below I have some examples below.
 
-## filter
-To only look at a small portion of the data set we can use filter to create a new dataframe. For example, this code creates a dataframe with rows which only correspond to ones with the label "non alcoholic".  
+## filter()
+To only look at a small portion of the data set we can use `filter()` to create a new dataframe. For example, this code creates a dataframe with rows which only correspond to ones with the label "non alcoholic".  
 ```{r}
 cocktails_non_alc <- cocktails %>% 
-  filter( alcoholic == "Non alcoholic")
+  filter( alcoholic == "Non Alcoholic")
 ```
 
-## group by/ summarise
-If we want to get a summary statistic across a categorical variables of our data set then we can use the two dyplr functions, group by and summarise, t get these values. For example, this code groups by the row_id, a unique identifier of the drink for the group by. Then in the summarise line, I use the function `n()` which  gets the total number of rows for each row_id, in context this is the number of ingredients per drink.
+## group_by()/ summarise()
+If we want to get a summary statistic across a categorical variables of our data set then we can use the two dyplr functions, `group_by()` and `summarise()`, to get these values. For example, this code groups by the `row_id`, a unique identifier of the drink for the group by. Then in the `summarise()` line, I use the function `n()` which  gets the total number of rows for each `row_id`, in context this is the number of ingredients per drink.
 ```{r}
 ingreident_df <- cocktails %>% 
   group_by(row_id) %>% 
   summarise(ingreident_num = n())
 ```
 
-## join 
-To combine two datasets we will use the join function. Join has many different abilities depending on which one you use, left, right, inner, outer, full, or semi. In this example I use left join because I want all my data from the cocktails dataframe and only want to add the `ingredident_num` column from the `ingreident_df` dataframe. 
+## _join()
+To combine two datasets we will use the `_join()` function. Join has many different abilities depending on which one you use, left, right, inner, outer, full, or semi. In this example I use left join because I want all my data from the cocktails dataframe and only want to add the `ingredident_num` column from the `ingreident_df` dataframe. 
 ```{r}
-cockatails2 <- cocktails %>% 
+cocktails2 <- cocktails %>% 
   left_join(ingreident_df, by = "row_id")
 ```
 
 ## arrange 
 If you want to order a dataset by a certain attribute we can use the arrange function. The default for arrange is to list from least to greatest. In the below code, it will order the data frame by cocktails with the lowest number of ingredients to the highest number of ingredients.  
 ```{r}
-cocktails3 <- cockatails2 %>% 
+cocktails3 <- cocktails2 %>% 
   arrange(ingreident_num)
 ```
 
 ## mutate
-To either calculate a new attribute or make new category we can use the mutate function. In the below code I use an `ifelse()` statement to make a new category to see if the drink is in the category Ordinary Drink or Not. 
+To either calculate a new attribute or make new category we can use the mutate function. The below code uses an `ifelse()` statement to make a new category to see if the drink is in the category Ordinary Drink or Not. Instead of strings, the second mutate makes the new category's into binary values, which is helpful for modeling. 
 ```{r}
-cocktails4 <- cocktails %>% 
-  mutate(	is.ord.drink = ifelse(category == "Ordinary Drink", "Ordinary Drink", "Other") )
+cocktails4 <- cocktails2 %>% 
+  mutate(	is_ord_drink = ifelse(category == "Ordinary Drink", "Ordinary Drink", "Other") ) %>% 
+  mutate(is_ord_drink_bin = ifelse(category == "Ordinary Drink", 1, 0) )
 ```
 
 # My functions
 
-#propByCat
+## prop_by_cat()
 This function easily outputs a dataframe of all combinations of the first category and second category with the proportion of category two for each group in category one. In this code, you would get a data frame with the portion of each category by if it is alcoholic or not. 
 ```{r}
-alc_by_cat_df<- propByCat(cocktails, "alcoholic", "category")
+alc_by_cat_df<- prop_by_cat(cocktails, "alcoholic", "category")
 ```
 
-#add_prop_to_df
+## add_prop_to_df()
 If you want the proportions found in the `propByCat` function added back to the original dataframe use `add_prop_to_df`. It takes the same inputs, only adds the proportions back into the orginal data frame. 
 ```{r}
 cocktails5 <- add_prop_to_df(cocktails, "alcoholic", "category")
+```
+
+## make_conf_matrix()
+This helper function is very useful when making a classifier model. To better understand what the model is predicting versus the true value we can make a confusion matrix. It will also display the accuracy, Sensitivity and specificity to evalaute the model. 
+```{r}
+my_model <- glm(data = cocktails4, is_ord_drink_bin ~ ingreident_num, family = "binomial")
+
+make_conf_matrix(my_model, cocktails4, cocktails4$is_ord_drink_bin)
+```
+
+
+# My Theme
+
+Another aspect of this package is my custom theme and color scheme. The theme called `jea_theme()` is based on the `theme_bw()` function, which outlines the plot, has a white background, and thin grid lines. In `jea_theme` the theme extends to have a box outline the plot, center the title, make the legend horizontal and centered on the bottom of the graph, and use the google font Eb Garamond. As well, my color scheme of greens and purples are seen in the plot. 
+```{r}
+ggplot(data = cocktails2, 
+       mapping = aes( x = ingreident_num, 
+                      y = alcoholic, 
+                      fill = alcoholic)) + 
+  geom_violin(alpha = 0.5) + 
+  geom_boxplot() +
+  jea_theme() + 
+  scale_fill_manual(values = jea_colors) + 
+  labs(y = "", 
+       x = "Number of Ingredients", 
+       title = "Distribution of Number of Ingredients by Alcoholic Type")
+  
 ```
 

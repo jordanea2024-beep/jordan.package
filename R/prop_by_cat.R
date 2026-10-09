@@ -12,9 +12,9 @@
 #'
 #' @examples
 #' df <- data.frame( row_id = 1:10, category_a = c("A", "A", "B", "B", "C", "C", "D", "D", "E", "E"), category_b = c("1", "2", "3", "1", "1", "2", "2", "3", "1", "1"))
-#' new_df <- propByCat(df, "category_a", "category_b")
+#' new_df <- prop_by_cat(df, "category_a", "category_b")
 #' print(new_df)
-propByCat <- function(df, cat1, cat2) {
+prop_by_cat <- function(df, cat1, cat2) {
   small_df <- df %>%
     # group by the 1st cat
     dplyr::group_by(.data[[cat1]]) %>%
@@ -49,7 +49,7 @@ propByCat <- function(df, cat1, cat2) {
 #' df <- data.frame( row_is = 1:10, category_a = c("A", "A", "B", "B", "C", "C", "D", "D", "E", "E"), category_b = c("1", "2", "3", "1", "1", "2", "2", "3", "1", "1"))
 #' new_df <- add_prop_to_df(df, "category_a", "category_b")
 add_prop_to_df <- function(df, cat1, cat2){
-  df_with_prop <- propByCat(df, cat1, cat2)
+  df_with_prop <- prop_by_cat(df, cat1, cat2)
   df <- df %>%
     # join a df with info from the propByCat function
     dplyr::left_join(df_with_prop, by = c({{cat1}}, {{cat2}}))

@@ -13,7 +13,8 @@ Imports:
     tidyverse, 
     sysfonts,
     readr,
-    rlang
+    rlang,
+    showtext
 Suggests: 
     knitr,
     rmarkdown,
