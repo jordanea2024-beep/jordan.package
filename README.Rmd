@@ -90,7 +90,8 @@ To complement my theme and my package, the colors `jea_colors` can be used in pl
 
 If you would like to learn more about the package and its functions you check out `my-vignette.Rmd`. To learn more about a particular function call: 
 
-`?prop_by_cat()`
-`?add_prop_to_df()`
-`?make_conf_matrix()`
+`?prop_by_cat`
+`?add_prop_to_df`
+`?make_conf_matrix`
+`?jea_theme`
 

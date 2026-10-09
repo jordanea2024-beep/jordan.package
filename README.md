@@ -90,22 +90,6 @@ ggplot(df, aes(x = category_a,
 #> This warning is displayed once per session.
 #> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 #> generated.
-#> Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-#> not found in Windows font database
-#> Warning in grid.Call(C_stringMetric, as.graphicsAnnot(x$label)): font family
-#> not found in Windows font database
-#> Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-#> family not found in Windows font database
-#> Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : font
-#> family not found in Windows font database
-#> Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
-#> font family not found in Windows font database
-#> Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
-#> font family not found in Windows font database
-#> Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
-#> font family not found in Windows font database
-#> Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
-#> font family not found in Windows font database
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" alt="" width="100%" />
@@ -223,4 +207,4 @@ If you would like to learn more about the package and its functions you
 check out `my-vignette.Rmd`. To learn more about a particular function
 call:
 
-`?prop_by_cat()` `?add_prop_to_df()` `?make_conf_matrix()`
+`?prop_by_cat` `?add_prop_to_df` `?make_conf_matrix` `?jea_theme`

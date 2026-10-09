@@ -8,6 +8,7 @@
 #' @return Confusion Matrix
 #'
 #' @examples
+#' library(dplyr)
 #' df <- data.frame( row_id = 1:10, category_a = c("A", "A", "B", "B", "C", "C", "D", "D", "E", "E"), category_b = c("1", "2", "3", "1", "1", "2", "2", "3", "1", "1"))
 #' df <- df %>% mutate(is_A_bin = ifelse(category_a == "A", 1, 0))
 #' my_model <- glm(data = df, is_A_bin ~ category_b + row_id, family = "binomial")

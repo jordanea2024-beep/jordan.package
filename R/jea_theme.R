@@ -1,14 +1,16 @@
-#' @importFrom sysfonts font_add_google
-font_add_google("EB Garamond", family = "eb_garamond")
-showtext::showtext_auto()
 #' Custom Theme for Jordan's Package
 #'
 #' Based in theme_bw() this theme function elevates the simplicity of the theme, centers labels, and places boxes around the legend.
+#'
+#' @importFrom sysfonts font_add_google
 #' @examples
+#' library(ggplot2)
 #' df <- data.frame( row_id = 1:10, category_a = c("A", "A", "B", "B", "C", "C", "D", "D", "E", "E"), category_b = c("1", "2", "3", "1", "1", "2", "2", "3", "1", "1"))
-#' ggplot(df, aes(x = category_a, fill = category_b)) +geom_bar(postion = "fill") + jea_theme() + scale_fill_manual(values = jea_colors)
+#' ggplot(df, aes(x = category_a, fill = category_b)) + geom_bar(position = "fill") + jea_theme() + scale_fill_manual(values = jea_colors)
 #' @export
 jea_theme <- function() {
+  font_add_google("EB Garamond", family = "eb_garamond")
+  showtext::showtext_auto()
   ggplot2::theme_bw(base_family = "eb_garamond") +
     ggplot2::theme(
       # Text Elements
@@ -50,7 +52,6 @@ jea_theme <- function() {
       legend.text = ggplot2::element_text(
         size = 15
       )
-
     )
 }
 #' Color Scheme For My Package
