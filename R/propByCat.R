@@ -1,14 +1,20 @@
+#' Proportion by Categorical Attribute
+#'
+#' Create a new dataframe with the proportion of category two for each group in category one
+#'
+#' @param df A Data Frame
+#' @param cat1 a string of the column name for the first category, the one the user should want to cat2 out of
+#' @param cat2 a string of the column name for the second category, the user should want to know this variable by cat1
 #' @importFrom magrittr %>%
+#' @importFrom rlang .data
+#' @return a data frame with each cat1 and cat2 and their proportions
 #' @export
+#'
+#' @examples
+#' df <- data.frame( row_id = 1:10, category_a = c("A", "A", "B", "B", "C", "C", "D", "D", "E", "E"), category_b = c("1", "2", "3", "1", "1", "2", "2", "3", "1", "1"))
+#' new_df <- propByCat(df, "category_a", "category_b")
+#' print(new_df)
 propByCat <- function(df, cat1, cat2) {
-  # Create a new dataframe with the proportion of
-  # category two for each group in category one
-  # Parameters:
-  # df: a data frame
-  # cat1: the first category, the one the user should want to cat2 out of
-  # cat2: the second category, the user should want to know this variable by cat1
-  # Returns:
-  # big_df: a data frame with each cat1 and cat2 and their proportions
   small_df <- df %>%
     # group by the 1st cat
     dplyr::group_by(.data[[cat1]]) %>%
@@ -27,16 +33,22 @@ propByCat <- function(df, cat1, cat2) {
     dplyr::ungroup()
   return(big_df)
 }
+#' Add Proportion by Categorical Attribute to Dataframe
+#'
+#' Adds to the dataframe the proportion of category two for each group in category one
+#'
+#' @param df A Data Frame
+#' @param cat1 a string of the column name for the first category, the one the user should want to cat2 out of
+#' @param cat2 a string of the column name for the second category, the user should want to know this variable by cat1
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
+#' @return a dataframe with the proportions as a new column
 #' @export
+#'
+#' @examples
+#' df <- data.frame( row_is = 1:10, category_a = c("A", "A", "B", "B", "C", "C", "D", "D", "E", "E"), category_b = c("1", "2", "3", "1", "1", "2", "2", "3", "1", "1"))
+#' new_df <- add_prop_to_df(df, "category_a", "category_b")
 add_prop_to_df <- function(df, cat1, cat2){
-  # Adds to the dataframe the proportion of
-  # category two for each group in category one
-  # Parameters:
-  # df: a data frame
-  # cat1: the first category, the one the user should want to cat2 out of
-  # cat2: the second category, the user should want to know this variable by cat1
-  # Returns:
-  # df: the orginal dataframe with each cat1 and cat2 and their proportions added on
   df_with_prop <- propByCat(df, cat1, cat2)
   df <- df %>%
     # join a df with info from the propByCat function

@@ -15,12 +15,9 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(jordan.package)
-library(ggplot2)
-library(dplyr)
-library(readr)
-library(magrittr)
+library(tidyverse)
 library(sysfonts)
+library(jordan.package)
 ```
 
 # data set 

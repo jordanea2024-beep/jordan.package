@@ -9,13 +9,14 @@ Config/roxygen2/version: 8.1.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports: 
-    dplyr,
-    ggplot2, 
     magrittr,
-    sysfonts, 
-    readr
+    tidyverse, 
+    sysfonts,
+    readr,
+    rlang
 Suggests: 
     knitr,
     rmarkdown,
-    caret
+    caret, 
+    stats
 VignetteBuilder: knitr

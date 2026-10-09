@@ -2,7 +2,7 @@ meta:
   name: brand.yml
   link: https://posit-dev.github.io/brand-yml
 
-logo:
+logo: jordan.package.logo.png
 
 color:
   palette:
