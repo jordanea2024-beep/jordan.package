@@ -4,7 +4,9 @@ showtext::showtext_auto()
 #' Custom Theme for Jordan's Package
 #'
 #' Based in theme_bw() this theme function elevates the simplicity of the theme, centers labels, and places boxes around the legend.
-#'
+#' @examples
+#' df <- data.frame( row_id = 1:10, category_a = c("A", "A", "B", "B", "C", "C", "D", "D", "E", "E"), category_b = c("1", "2", "3", "1", "1", "2", "2", "3", "1", "1"))
+#' ggplot(df, aes(x = category_a, fill = category_b)) +geom_bar(postion = "fill") + jea_theme() + scale_fill_manual(values = jea_colors)
 #' @export
 jea_theme <- function() {
   ggplot2::theme_bw(base_family = "eb_garamond") +

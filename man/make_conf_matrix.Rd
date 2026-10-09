@@ -19,3 +19,11 @@ Confusion Matrix
 \description{
 Using a model, your data, and the predictor column this will create a Confusion Matrix to Better understand your classifer model
 }
+\examples{
+df <- data.frame( row_id = 1:10, category_a = c("A", "A", "B", "B", "C", "C", "D", "D", "E", "E"), category_b = c("1", "2", "3", "1", "1", "2", "2", "3", "1", "1"))
+df <- df \%>\% mutate(is_A_bin = ifelse(category_a == "A", 1, 0))
+my_model <- glm(data = df, is_A_bin ~ category_b + row_id, family = "binomial")
+my_conf_matrix <- make_conf_matrix(my_model, df, df$is_A_bin)
+print(my_conf_matrix)
+
+}
